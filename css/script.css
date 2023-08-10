@@ -6,3 +6,35 @@
 .a_img{
     
 }
+
+  
+  .keyboard {
+    display: inline-block;
+    
+    padding: 10px;
+    border-radius: 5px;
+    
+  }
+  
+  .k_row {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .key {
+    width: 48px !important;
+    height: 48px !important;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid lightslategray;
+    
+    background-color: azure;
+    font-weight:bold ;
+        
+  }     
+.key:hover{
+    border: 2px solid lightslategray;
+    transform: scale(.9 );
+}
