@@ -35,7 +35,10 @@
   transition: transform 0.2s;
 }
 .k_active{
-  transform: translate(4px,4px);
+  transform: scale(.9);
+  border: 2px solid lightslategray;
+  
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
   
   
 }
