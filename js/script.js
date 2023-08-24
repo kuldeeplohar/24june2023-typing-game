@@ -24,7 +24,7 @@ let saveRegistrationInfo = ()=> {
    }
 
     let playAudio = ()=>{
-    console.log("GM")
+    //console.log("GM")
     let at = document.querySelector('.kAudio');
     at.play();
   }
@@ -57,7 +57,14 @@ let saveRegistrationInfo = ()=> {
      },1000)
    }
 
-  (()=>{
+    
+
+
+     (()=>{
+
+      let currentcharacterposition = 0;
+    
+
      let fn = window.localStorage.getItem('first_name')
      let ln = window.localStorage.getItem('last_name')
 
@@ -91,7 +98,7 @@ let saveRegistrationInfo = ()=> {
           //Play sound when press key
       
           document.addEventListener('keypress',(e)=>{
-            console.log('=>',e.keyCode);
+            //console.log('=>',e.keyCode);
             if(e.keyCode == 97){ 
              
              let a = document.querySelector('.k_a');
@@ -565,6 +572,9 @@ let saveRegistrationInfo = ()=> {
            r3.style.display = "none"
            r4.style.display = "none"
            r5.style.display = "none"
+
+           currentcharacterposition = currentcharacterposition+1
+           console.log(currentcharacterposition)
            
           })
 
@@ -581,6 +591,17 @@ let saveRegistrationInfo = ()=> {
     
           document.querySelector('.k_duration').innerHTML = localStorage.getItem('duration') === null ? '' :localStorage.getItem('duration') + ':00';
 
-       
+          let story = `To Clean a Creek is inspired by the true story of a young boy in Brazil who was saddened by the trash in and around the river near his home. Determined to take action, he inspired the people in his community to work together to clean up the river and restore the natural beauty of the area.
+          What role did his friends play in changing their community? Why does it matter? Read and imagine a cleaner, safer world for you and your community.`
+          
+        
+          
+          let x = story.split(' ');
 
-  })();
+          console.log(x.slice(0,20).join(' '))
+         
+          var content = x.slice(0,20).join(' ')
+
+         document.querySelector('.k_splite').innerHTML = content;
+
+   })();
