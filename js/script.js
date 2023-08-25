@@ -107,6 +107,7 @@ let saveRegistrationInfo = ()=> {
             
              
             l1.style.display = 'block'
+            
             }
             if(e.keyCode == 115){ 
              

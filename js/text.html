@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <button onclick="start()">start</button>
+   <p class="k_paragraph">hello</p>
+
+   <script>
+    let story = (`Along with the smooth flow of sentences, a paragraph’s coherence may also be related to its length. `)
+  
+     let pertwolinecharactercount = 10;
+     let intialsequeance = 1;
+     let currentcharterlocation=0;
+
+    function extractSubstrings(inputString, startIndex, length) {
+        return inputString.substr(startIndex, length);
+        }
+    
+  
+    let start = ()=>{
+       console.log('hello',story.length)
+
+       document.querySelector('.k_paragraph').innerHTML = story
+   }
+
+    document.addEventListener('keyup', ()=>{
+       currentcharterlocation++;
+       console.log('intialsequeance',intialsequeance)
+       console.log('currentcharterlocation',currentcharterlocation)
+       console.log('pertwolinecharactercount', pertwolinecharactercount)
+
+       if(pertwolinecharactercount <= currentcharterlocation){
+        currentcharterlocation=0
+        intialsequeance++;
+          console.log('newintialsequeance',intialsequeance)
+    
+       }
+            
+        const startIndex = (intialsequeance  -1 ) * pertwolinecharactercount;
+        const substring = extractSubstrings(story, startIndex, pertwolinecharactercount);
+        console.log('Current Substring:', substring);
+        document.querySelector('.k_paragraph').innerHTML = substring
+   })
+  </script>
+  
+    
+
+</body>
+</html>
