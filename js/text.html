@@ -29,6 +29,7 @@
      let pertwolinecharactercount = 10  ;
      let intialsequeance = 1;
      let currentcharterlocation=0;
+     let nextchar = '';
      
 
     function extractSubstrings(inputString, startIndex, length) {
@@ -63,9 +64,10 @@
 
         let part1 = substring.slice(0, currentcharterlocation) ; // Similar to using substring()
         let part2 = substring.slice(currentcharterlocation); // End index omitted to include till the end
-         
+        nextchar=part2[0]
         console.log('part-1==>',part1); 
         console.log('part-2==>',part2);
+        console.log('nextchar==>', nextchar)
 
 
         let a = `<span style='color:red '>${part1}</span>`+ `<span style='color:blue;text-decoration:underline;'>${part2[0]}</span>`+`<span style='color:green ' >${part2.slice(1)}</span>`;

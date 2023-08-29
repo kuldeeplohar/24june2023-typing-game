@@ -1,20 +1,27 @@
+    let pertwolinecharactercount = 120 ;
+    let intialsequeance = 1;
+    let currentcharterlocation=0;
+    let nextchar = '';
+    let currentchar = '';
+  
+   
+    
+  let saveRegistrationInfo = ()=> {
+      console.log("okok");
 
-let saveRegistrationInfo = ()=> {
-    console.log("okok");
+      let fn = document.getElementById('first_name').value;
+      let ln = document.getElementById('last_name').value;
+      let dur = document.querySelector('.k_select').value
 
-    let fn = document.getElementById('first_name').value;
-    let ln = document.getElementById('last_name').value;
-    let dur = document.querySelector('.k_select').value
+      console.log(fn);
+      console.log(ln);
+      console.log(dur);
+      window.localStorage.setItem('first_name',fn);
+      window.localStorage.setItem('last_name',ln);
+      window.localStorage.setItem('duration',dur);
+      window.location.reload();
 
-    console.log(fn);
-    console.log(ln);
-    console.log(dur);
-    window.localStorage.setItem('first_name',fn);
-    window.localStorage.setItem('last_name',ln);
-    window.localStorage.setItem('duration',dur);
-    window.location.reload();
-
-}
+   }
 
    let Logout = ()=>{
     console.log("kk");
@@ -28,8 +35,14 @@ let saveRegistrationInfo = ()=> {
     let at = document.querySelector('.kAudio');
     at.play();
   }
+    let playAudioEs = ()=>{
+    //console.log("GM")
+    let es = document.querySelector('.tAudio');
+    es.play();
+  }
      
   let start = ()=>{
+
      // Set the date we're counting down to
     var nextTime = new Date().getTime();  
 
@@ -62,7 +75,7 @@ let saveRegistrationInfo = ()=> {
 
      (()=>{
 
-      let currentcharacterposition = 0;
+   
     
 
      let fn = window.localStorage.getItem('first_name')
@@ -98,6 +111,18 @@ let saveRegistrationInfo = ()=> {
           //Play sound when press key
       
           document.addEventListener('keypress',(e)=>{
+             
+            currentchar = e.key
+
+            if(currentchar !== nextchar){
+              playAudioEs()
+            }else{
+              playAudio()
+            }
+
+
+
+             currentcharterlocation++;
             //console.log('=>',e.keyCode);
             if(e.keyCode == 97){ 
              
@@ -551,9 +576,46 @@ let saveRegistrationInfo = ()=> {
               
              l5.style.display = 'block'
              }
- 
-            playAudio();
+
+            
+           
+             playAudio();
+  
+            function extractSubstrings(inputString, startIndex, length) {
+              return inputString.substr(startIndex, length);
+              }
+
+            console.log('intialsequeance',intialsequeance)
+            console.log('currentcharterlocation',currentcharterlocation)
+            console.log('pertwolinecharactercount', pertwolinecharactercount)
+     
+            if(pertwolinecharactercount <= currentcharterlocation){
+             currentcharterlocation=0
+             intialsequeance++;
+               console.log('newintialsequeance',intialsequeance)
+         
+            }
+                 
+             const startIndex = (intialsequeance  -1 ) * pertwolinecharactercount;
+             const substring = extractSubstrings(story, startIndex, pertwolinecharactercount);
+             console.log('Current Substring:', substring);
+             document.querySelector('.k_paragraph').innerHTML = substring
+     
+             let part1 = substring.slice(0, currentcharterlocation) ; // Similar to using substring()
+             let part2 = substring.slice(currentcharterlocation); // End index omitted to include till the end
+             nextchar=part2[0]
+            
+             console.log('part-1==>',part1); 
+             console.log('part-2==>',part2);
+             console.log('nextchar==>',nextchar);
+     
+     
+             let a = `<span style='color:red '>${part1}</span>`+ `<span style='color:blue;text-decoration:underline;'>${part2[0]}</span>`+`<span style='color:green ' >${part2.slice(1)}</span>`;
+             document.querySelector('.k_paragraph').innerHTML =  a
+       
           })
+          
+          
   
 
           document.addEventListener('keyup', (e)=>{
@@ -574,12 +636,13 @@ let saveRegistrationInfo = ()=> {
            r4.style.display = "none"
            r5.style.display = "none"
 
-           currentcharacterposition = currentcharacterposition+1
-           console.log(currentcharacterposition)
+          
            
           })
 
+          
 
+      
           var o = ``;
           for(var i=1; i<=60; i++){
             
@@ -592,16 +655,16 @@ let saveRegistrationInfo = ()=> {
     
           document.querySelector('.k_duration').innerHTML = localStorage.getItem('duration') === null ? '' :localStorage.getItem('duration') + ':00';
 
-          let story = `To Clean a Creek is inspired by the true story of a young boy in Brazil who was saddened by the trash in and around the river near his home. Determined to take action, he inspired the people in his community to work together to clean up the river and restore the natural beauty of the area.
-          What role did his friends play in changing their community? Why does it matter? Read and imagine a cleaner, safer world for you and your community.`
-          
-        
+          let story =(`In the tapestry of life, challenges and opportunities are woven together in a delicate dance. Each day brings a chance for you to paint your own masterpiece, to carve your path through the intricate landscape of existence. Remember, it's not the absence of adversity, but your response to it that defines your journey. Embrace setbacks as stepping stones, for they lead to growth and resilience. Let your dreams be the guiding stars that ignite your passions and fuel your determination.
+          In the symphony of time, your actions play the notes that reverberate into the future. Your efforts, no matter how small they may seem, have the power to ripple across the universe, touching lives and shaping destinies. Even when doubt casts its shadow, remember the strength that resides within you. Draw inspiration from the countless souls who have overcome obstacles just like yours and emerged stronger, wiser, and more compassionate.
+          The road to success winds through valleys of uncertainty and climbs peaks of triumph. It demands perseverance, courage, and an unwavering belief in your capabilities. As you navigate this intricate path, keep your vision clear and your heart aflame with passion. Let each sunrise remind you that you have a fresh canvas to paint upon, a new page to script your story.
+          So, stand tall in the face of adversity, for within you lies a reservoir of untapped potential. Seize the day with the conviction that you are the author of your narrative. Let your actions be guided by hope, kindness, and a fierce determination to sculpt the life you envision. As you journey forward, remember that the most extraordinary tales are often born from the most challenging chapters.`)
           
           let x = story.split(' ');
 
-          console.log(x.slice(0,20).join(' '))
+          console.log(x.slice(0,10).join(' '))
          
-          var content = x.slice(0,20).join(' ')
+          var content = x.slice(0,10).join(' ')
 
          document.querySelector('.k_splite').innerHTML = content;
 
