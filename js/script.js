@@ -3,6 +3,8 @@
     let currentcharterlocation=0;
     let nextchar = '';
     let currentchar = '';
+    let totalcharacter = 1720
+    
   
    
     
@@ -12,6 +14,8 @@
       let fn = document.getElementById('first_name').value;
       let ln = document.getElementById('last_name').value;
       let dur = document.querySelector('.k_select').value
+      let typevalue = document.querySelector('.wpmrohit').value
+     
 
       console.log(fn);
       console.log(ln);
@@ -19,11 +23,13 @@
       window.localStorage.setItem('first_name',fn);
       window.localStorage.setItem('last_name',ln);
       window.localStorage.setItem('duration',dur);
+     
       window.location.reload();
 
    }
 
-   let Logout = ()=>{
+
+   var Logout = ()=>{
     console.log("kk");
     window.localStorage.clear();
 
@@ -43,35 +49,39 @@
      
   let start = ()=>{
 
-     // Set the date we're counting down to
     var nextTime = new Date().getTime();  
 
-    nextTime = new Date ( nextTime + (localStorage.getItem('duration') * 60 * 1000))
-    setInterval(function(){
-      
-      // Get today's date and time
-      var now = new Date().getTime();
-      console.log('current time', now)
-      console.log('next time', nextTime)
-  
-      var distance = nextTime - now;
-      
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    nextTime = new Date ( nextTime + (localStorage.getItem('duration') * 60 * 1000)) 
+   setInterval(function(){
+     
+     // Get today's date and time
+     var now = new Date().getTime();
 
-      // Display the result in the element with id="demo"
-      document.getElementById("demo").innerHTML = minutes + ':'+ seconds ;
-
-      // If the count down is finished, w rite some text
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("demo").innerHTML = "EXPIRED";
-      }
-     },1000)
-   }
-
+     
     
+   // console.log('current time', now)
+    // console.log('next time', nextTime)
+ 
+     var distance = nextTime - now;
+     
+     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+     // Display the result in the element with id="demo"
+     document.getElementById("demo").innerHTML = minutes + ':'+ seconds ;
+      
+     // If the count down is finished, w rite some text
+    
+     if (distance <= 0) {
+      clearInterval();
+     
+      window.location.reload() 
+     
+     }
+    }, 1000); 
+    
+  }
+      
 
      (()=>{
 
@@ -80,6 +90,7 @@
 
      let fn = window.localStorage.getItem('first_name')
      let ln = window.localStorage.getItem('last_name')
+     let typevalue = window.localStorage.getItem('typingSpeed')
 
      let l1 = document.querySelector('.l1');
      let l2 = document.querySelector('.l2');
@@ -107,11 +118,19 @@
             if(window.localStorage.getItem('first_name') !== null) {
                document.querySelector('.k_welcome').innerHTML = 'Welcome ' + fn + " " + ln;
             }
+            if(window.localStorage.getItem('typingSpeed') !== null) {
+              document.querySelector('.wpmrohit').innerHTML ='Typing speed:' + typevalue + " WPM";
+           }
 
           //Play sound when press key
       
           document.addEventListener('keypress',(e)=>{
-             
+       
+            var wpmElement = document.getElementById("wpm");     
+            var textContent = wpmElement.textContent;
+            var numericValue = textContent.match(/\d+/)[0]; 
+            localStorage.setItem("typingSpeed", numericValue);
+       
             currentchar = e.key
 
             if(currentchar !== nextchar){
@@ -595,7 +614,8 @@
                console.log('newintialsequeance',intialsequeance)
          
             }
-                 
+
+
              const startIndex = (intialsequeance  -1 ) * pertwolinecharactercount;
              const substring = extractSubstrings(story, startIndex, pertwolinecharactercount);
              console.log('Current Substring:', substring);
@@ -614,8 +634,49 @@
              document.querySelector('.k_paragraph').innerHTML =  a
        
           })
-          
-          
+            
+          document.addEventListener("DOMContentLoaded", function () {
+            const inputField = document.getElementById("inputField");
+            const startTimerBtn = document.getElementById("startButton");
+            const wpmElement = document.getElementById("wpm");
+
+            
+        
+            let startTime, wordCount = 0;
+            let timeoutId;
+        
+            startTimerBtn.addEventListener("click", function () {
+                inputField.value = "";
+                wpmElement.textContent = "Typing speed: 0 WPM";
+                inputField.removeAttribute("disabled");
+                inputField.focus();
+                startTime = null;
+                wordCount = 0;
+                clearTimeout(timeoutId); // Clear any existing timeouts
+                timeoutId = setTimeout(stopTypingTest, 60000); // 60 seconds timeout
+                localStorage.setItem("typingSpeed", "0"); // Set initial typing speed in local storage
+            });
+        
+            inputField.addEventListener("input", function () {
+                if (!startTime) {
+                    startTime = Date.now();
+                }
+        
+                wordCount = inputField.value.trim().split(/\s+/).length;
+        
+                const elapsedTimeInSeconds = (Date.now() - startTime) / 1000;
+                const wordsPerMinute = Math.round((wordCount / elapsedTimeInSeconds) * 60);
+        
+                wpmElement.textContent = `Typing speed: ${wordsPerMinute} WPM`;
+            });
+        
+            function stopTypingTest() {
+                inputField.setAttribute("disabled", "disabled");
+                startTimerBtn.setAttribute("disabled", "disabled");
+            }
+        });
+        
+        
   
 
           document.addEventListener('keyup', (e)=>{
@@ -667,5 +728,7 @@
           var content = x.slice(0,10).join(' ')
 
          document.querySelector('.k_splite').innerHTML = content;
+
+    
 
    })();

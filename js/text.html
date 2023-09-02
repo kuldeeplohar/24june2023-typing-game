@@ -1,82 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .character {
-          display: inline-block;
-          width: 20px;
-          height: 20px;
-          text-align: center;
-          line-height: 20px;
-          font-weight: bold;
-        }
-      
-        .current {
-          background-color: green;
-          color: white;
-        }
-      </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
 <body>
-   <button onclick="start()">start</button>
-   <p class="k_paragraph">hello</p>
+  <input type="text" id="inputField" placeholder="Type the text...">
+<div id="wpm">Typing speed: 0 WPM</div>
 
-   <script>
-        let story = (`Along with the smooth flow of sentences, a paragraph’s coherence may also be related to its length. `)
+  <script>
+const inputField = document.getElementById("inputField");
+const wpmElement = document.getElementById("wpm");
+
+let startTime, wordCount = 0;
+
+inputField.addEventListener("input", () => {
+    if (!startTime) startTime = Date.now();
     
-     let pertwolinecharactercount = 10  ;
-     let intialsequeance = 1;
-     let currentcharterlocation=0;
-     let nextchar = '';
-     
-
-    function extractSubstrings(inputString, startIndex, length) {
-        return inputString.substr(startIndex, length);
-        }
+    wordCount = inputField.value.trim().split(/\s+/).length;
     
-  
-    let start = ()=>{
-       console.log('hello',story.length)
-
-       document.querySelector('.k_paragraph').innerHTML = story
-   }
-
-    document.addEventListener('keypress', ()=>{
-       currentcharterlocation++;
+    const elapsedTimeInSeconds = (Date.now() - startTime) / 1000;
+    const wordsPerMinute = Math.round((wordCount / elapsedTimeInSeconds) * 60);
     
-       console.log('intialsequeance',intialsequeance)
-       console.log('currentcharterlocation',currentcharterlocation)
-       console.log('pertwolinecharactercount', pertwolinecharactercount)
-
-       if(pertwolinecharactercount <= currentcharterlocation){
-        currentcharterlocation=0
-        intialsequeance++;
-          console.log('newintialsequeance',intialsequeance)
+    wpmElement.textContent = `Typing speed: ${wordsPerMinute} WPM`;
     
-       }
-            
-        const startIndex = (intialsequeance  -1 ) * pertwolinecharactercount;
-        const substring = extractSubstrings(story, startIndex, pertwolinecharactercount);
-        console.log('Current Substring:', substring);
-        document.querySelector('.k_paragraph').innerHTML = substring
-
-        let part1 = substring.slice(0, currentcharterlocation) ; // Similar to using substring()
-        let part2 = substring.slice(currentcharterlocation); // End index omitted to include till the end
-        nextchar=part2[0]
-        console.log('part-1==>',part1); 
-        console.log('part-2==>',part2);
-        console.log('nextchar==>', nextchar)
-
-
-        let a = `<span style='color:red '>${part1}</span>`+ `<span style='color:blue;text-decoration:underline;'>${part2[0]}</span>`+`<span style='color:green ' >${part2.slice(1)}</span>`;
-        document.querySelector('.k_paragraph').innerHTML =  a
-   })
+});
 
   </script>
-  
-    
-
 </body>
 </html>
