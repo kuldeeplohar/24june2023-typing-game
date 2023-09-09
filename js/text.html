@@ -1,32 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <input type="text" id="inputField" placeholder="Type the text...">
-<div id="wpm">Typing speed: 0 WPM</div>
-
-  <script>
-const inputField = document.getElementById("inputField");
-const wpmElement = document.getElementById("wpm");
-
-let startTime, wordCount = 0;
-
-inputField.addEventListener("input", () => {
-    if (!startTime) startTime = Date.now();
-    
-    wordCount = inputField.value.trim().split(/\s+/).length;
-    
-    const elapsedTimeInSeconds = (Date.now() - startTime) / 1000;
-    const wordsPerMinute = Math.round((wordCount / elapsedTimeInSeconds) * 60);
-    
-    wpmElement.textContent = `Typing speed: ${wordsPerMinute} WPM`;
-    
-});
-
-  </script>
-</body>
-</html>
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content border-4">
+        <div class="modal-header">
+          <h5 class="modal-title">Countdown Timer Reached Zero</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Your countdown timer has reached zero!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -4,7 +4,7 @@
     let nextchar = '';
     let currentchar = '';
     let totalcharacter = 1720
-    
+    let correctCharacters = 0;
   
    
     
@@ -47,41 +47,35 @@
     es.play();
   }
      
-  let start = ()=>{
+  let start = () => {
+    var nextTime = new Date().getTime();
+    nextTime = new Date(nextTime + localStorage.getItem('duration') * 60 * 1000);
+    var countdownInterval = setInterval(function () {
+      // Get today's date and time
+      var now = new Date().getTime();
+      var distance = nextTime - now;
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+      // Display the result in the element with id="demo"
+      document.getElementById("demo").innerHTML = minutes + ':' + seconds;
+  
+      // If the count down is finished, show the modal and reload the page
+      if (distance <= 0) {
+        clearInterval(countdownInterval);
+  
+        // Show the modal by removing the 'fade' class and adding 'show' to the modal element
+        var modal = document.getElementById("myModal");
+        modal.classList.remove("fade");
+        modal.style.display = "block";
+                                    
+      }
+    }, 1000);
+  };
+  
+  
 
-    var nextTime = new Date().getTime();  
 
-    nextTime = new Date ( nextTime + (localStorage.getItem('duration') * 60 * 1000)) 
-   setInterval(function(){
-     
-     // Get today's date and time
-     var now = new Date().getTime();
-
-     
-    
-   // console.log('current time', now)
-    // console.log('next time', nextTime)
- 
-     var distance = nextTime - now;
-     
-     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-     // Display the result in the element with id="demo"
-     document.getElementById("demo").innerHTML = minutes + ':'+ seconds ;
-      
-     // If the count down is finished, w rite some text
-    
-     if (distance <= 0) {
-      clearInterval();
-     
-      window.location.reload() 
-     
-     }
-    }, 1000); 
-    
-  }
-      
 
      (()=>{
 
@@ -637,7 +631,7 @@
             
           document.addEventListener("DOMContentLoaded", function () {
             const inputField = document.getElementById("inputField");
-            const startTimerBtn = document.getElementById("startButton");
+            var startTimerBtn = document.getElementById("startButton");
             const wpmElement = document.getElementById("wpm");
 
             
@@ -700,12 +694,27 @@
           
            
           })
+              //code working for before the press button keys disabled
+            function preventKeyEvents(event) {
+              event.preventDefault();
+            }
+         
+            document.addEventListener('keydown', preventKeyEvents);
+            document.addEventListener('keyup', preventKeyEvents);
+  
+            document.getElementById('startButton').addEventListener('click', function() {
+              // Remove the event listeners when the start button is clicked
+              document.removeEventListener('keydown', preventKeyEvents);
+              document.removeEventListener('keyup', preventKeyEvents);
 
-          
-
-      
+              // Add your start button logic here
+            });
+       
+                  
+    
           var o = ``;
           for(var i=1; i<=60; i++){
+
             
             o = o + `<option value = "${i}">${i}</option>`;
           }
