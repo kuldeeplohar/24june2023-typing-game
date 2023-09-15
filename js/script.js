@@ -3,18 +3,16 @@
     let currentcharterlocation=0;
     let nextchar = '';
     let currentchar = '';
-    let totalcharacter = 1720
-    let correctCharacters = 0;
+    let typedCharacterCount = 0;
   
-   
-    
-  let saveRegistrationInfo = ()=> {
+    let saveRegistrationInfo = ()=> {
       console.log("okok");
 
       let fn = document.getElementById('first_name').value;
       let ln = document.getElementById('last_name').value;
       let dur = document.querySelector('.k_select').value
       let typevalue = document.querySelector('.wpmrohit').value
+   
      
 
       console.log(fn);
@@ -26,8 +24,41 @@
      
       window.location.reload();
 
-   }
+    }
 
+        let typedCharacters = "";
+        let correctCharacters = 0;
+        var story =(`In the tapestry of life, challenges and opportunities are woven together in a delicate dance. Each day brings a chance for you to paint your own masterpiece, to carve your path through the intricate landscape of existence. Remember, it's not the absence of adversity, but your response to it that defines your journey. Embrace setbacks as stepping stones, for they lead to growth and resilience. Let your dreams be the guiding stars that ignite your passions and fuel your determination.
+        In the symphony of time, your actions play the notes that reverberate into the future. Your efforts, no matter how small they may seem, have the power to ripple across the universe, touching lives and shaping destinies. Even when doubt casts its shadow, remember the strength that resides within you. Draw inspiration from the countless souls who have overcome obstacles just like yours and emerged stronger, wiser, and more compassionate.
+        The road to success winds through valleys of uncertainty and climbs peaks of triumph. It demands perseverance, courage, and an unwavering belief in your capabilities. As you navigate this intricate path, keep your vision clear and your heart aflame with passion. Let each sunrise remind you that you have a fresh canvas to paint upon, a new page to script your story.
+        So, stand tall in the face of adversity, for within you lies a reservoir of untapped potential. Seize the day with the conviction that you are the author of your narrative. Let your actions be guided by hope, kindness, and a fierce determination to sculpt the life you envision. As you journey forward, remember that the most extraordinary tales are often born from the most challenging chapters.`) // Replace with your story string
+        
+        document.addEventListener('keypress', (e) => {
+          const typedCharacter = e.key;
+          typedCharacters += typedCharacter;
+          console.log('Typed Characters:', typedCharacters.length);
+        
+          if (typedCharacters.length <= story.length) {
+            if (typedCharacter === story[typedCharacters.length - 1]) {
+              correctCharacters++;
+              console.log('Correct Characters:', correctCharacters);
+            } else {
+              console.log('Incorrect Character');
+            }
+          } else {
+            console.log('Story typing completed.');
+          }
+          let accurancy = (correctCharacters*100)/typedCharacters.length
+             
+          console.log('accurancy',accurancy)
+
+        let accuracy =    document.getElementById('acc').textContent = `Accuracy: ${accurancy.toFixed(2)}%`;
+
+        localStorage.setItem("Accuracy", accurancy);
+        accuracy = localStorage.getItem("Accuracy");
+        });
+   
+   
 
    var Logout = ()=>{
     console.log("kk");
@@ -48,6 +79,7 @@
   }
      
   let start = () => {
+   
     var nextTime = new Date().getTime();
     nextTime = new Date(nextTime + localStorage.getItem('duration') * 60 * 1000);
     var countdownInterval = setInterval(function () {
@@ -71,6 +103,7 @@
                                     
       }
     }, 1000);
+   
   };
   
   
@@ -624,10 +657,13 @@
              console.log('nextchar==>',nextchar);
      
      
-             let a = `<span style='color:red '>${part1}</span>`+ `<span style='color:blue;text-decoration:underline;'>${part2[0]}</span>`+`<span style='color:green ' >${part2.slice(1)}</span>`;
+             let a = `<span style='color:red '>${part1}</span>`+ `<span style='color:red;text-decoration:underline;'>${part2[0]}</span>`+`<span style='color:blue ;text-decoration:underline; font-size:50px;'>${part2[1]}</span>`+`<span style='color:green ' >${part2.slice(2)}</span>`;
              document.querySelector('.k_paragraph').innerHTML =  a
-       
-          })
+             
+
+             
+            })
+                    
             
           document.addEventListener("DOMContentLoaded", function () {
             const inputField = document.getElementById("inputField");
@@ -668,14 +704,13 @@
                 inputField.setAttribute("disabled", "disabled");
                 startTimerBtn.setAttribute("disabled", "disabled");
             }
-        });
+          
+          });
+      
         
-        
-  
-
           document.addEventListener('keyup', (e)=>{
-          console.log(e);
-           
+        //  console.log(e);
+          
            var elements = document.getElementsByClassName('k_active');
            for(var i = 0; i < elements.length; i++){ 
             elements[i].classList.remove("k_active");
@@ -709,23 +744,23 @@
 
               // Add your start button logic here
             });
-       
-                  
-    
+          
+           
+           
           var o = ``;
           for(var i=1; i<=60; i++){
 
             
             o = o + `<option value = "${i}">${i}</option>`;
           }
-          console.log(o);
+        //  console.log(o);
 
           document.querySelector('.k_select').innerHTML = o ;
 
     
           document.querySelector('.k_duration').innerHTML = localStorage.getItem('duration') === null ? '' :localStorage.getItem('duration') + ':00';
 
-          let story =(`In the tapestry of life, challenges and opportunities are woven together in a delicate dance. Each day brings a chance for you to paint your own masterpiece, to carve your path through the intricate landscape of existence. Remember, it's not the absence of adversity, but your response to it that defines your journey. Embrace setbacks as stepping stones, for they lead to growth and resilience. Let your dreams be the guiding stars that ignite your passions and fuel your determination.
+          var story =(`In the tapestry of life, challenges and opportunities are woven together in a delicate dance. Each day brings a chance for you to paint your own masterpiece, to carve your path through the intricate landscape of existence. Remember, it's not the absence of adversity, but your response to it that defines your journey. Embrace setbacks as stepping stones, for they lead to growth and resilience. Let your dreams be the guiding stars that ignite your passions and fuel your determination.
           In the symphony of time, your actions play the notes that reverberate into the future. Your efforts, no matter how small they may seem, have the power to ripple across the universe, touching lives and shaping destinies. Even when doubt casts its shadow, remember the strength that resides within you. Draw inspiration from the countless souls who have overcome obstacles just like yours and emerged stronger, wiser, and more compassionate.
           The road to success winds through valleys of uncertainty and climbs peaks of triumph. It demands perseverance, courage, and an unwavering belief in your capabilities. As you navigate this intricate path, keep your vision clear and your heart aflame with passion. Let each sunrise remind you that you have a fresh canvas to paint upon, a new page to script your story.
           So, stand tall in the face of adversity, for within you lies a reservoir of untapped potential. Seize the day with the conviction that you are the author of your narrative. Let your actions be guided by hope, kindness, and a fierce determination to sculpt the life you envision. As you journey forward, remember that the most extraordinary tales are often born from the most challenging chapters.`)

@@ -54,7 +54,7 @@
       <div class="modal-body offset-3 fs-5 fw-bold">
         <div id="wpm" class="wpmrohit" >Net speed   : 0 WPM </div>
         <div  >Gross speed : 0 WPM </div>
-        <div  >Accurancy   : 0 WPM </div>
+        <div  id="acc" >Accurancy   : 0 WPM </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Logout()">Close</button>
@@ -64,15 +64,14 @@
 </div>
 
       
-       <section class="container p-0 k_tbdr " style="height: 650px;" >
+        <section class="container p-0 k_tbdr " style="height: 650px;" >
            <div class="  h-100 overflow-hidden " style="border-radius: 30px; border: 8px solid #887FE5;">
                <div class="row m-0 h-100">
                     <div class="col-9 p-0 k_tbdr " style="background-color: #EFFFD7;">
                          
                           <div class="k_tbdr overflow-hidden position-relative  "id="prompt"  style="height: 150px;">
                           <p class="fs-3 fw-bold position-absolute k_paragraph" id="text"   style="top: 40px;"></p>
-                      
-
+    
                         </div>
                           <div class="k_tbdr   " style="height: 288px;"> 
                        
@@ -177,7 +176,7 @@
                           <div class="row mt-4 me-0 ms-0 fs-3 fw-bolder border-bottom ps-2"> Time</div>
                           <div class="fs-1 fw-bold ps-2 k_duration" id="demo">3:00</div>
                           <input type="text" class="position-absolute visually-hidden " id="inputField" placeholder="Type the text..."  style="top: 200px " onclick="saveRegistrationInfo()" >
-                          <div  class="kll">Accurancy   : 0 WPM </div>
+                          <div  id="acc" class="accu" >accuracy: </div>
                           
 
                         

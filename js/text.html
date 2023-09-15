@@ -1,18 +1,65 @@
-<!-- Bootstrap Modal -->
-<div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content border-4">
-        <div class="modal-header">
-          <h5 class="modal-title">Countdown Timer Reached Zero</h5>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <p>Your countdown timer has reached zero!</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Accuracy Calculator</title>
+    <style>
+        /* Add some basic CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .reference-text {
+            color: #000; /* Black color for reference text */
+            text-decoration: underline; /* Underline the reference text */
+        }
+
+        .typed-text {
+            color: green; /* Green color for correctly typed text */
+        }
+    </style>
+</head>
+<body>
+    <h1>Typing Accuracy Calculator</h1>
+    <p>Paste the reference text below:</p>
+
+    <textarea id="reference-text" rows="10" cols="80">In the tapestry of life, challenges and opportunities are woven together in a delicate dance. Each day brings a chance for you to paint your own masterpiece, to carve your path through the intricate landscape of existence. Remember, it's not the absence of adversity, but your response to it that defines your journey. Embrace setbacks as stepping stones, for they lead to growth and resilience. Let your dreams be the guiding stars that ignite your passions and fuel your determination.
+        In the symphony of time, your actions play the notes that reverberate into the future. Your efforts, no matter how small they may seem, have the power to ripple across the universe, touching lives and shaping destinies. Even when doubt casts its shadow, remember the strength that resides within you. Draw inspiration from the countless souls who have overcome obstacles just like yours and emerged stronger, wiser, and more compassionate.
+        The road to success winds through valleys of uncertainty and climbs peaks of triumph. It demands perseverance, courage, and an unwavering belief in your capabilities. As you navigate this intricate path, keep your vision clear and your heart aflame with passion. Let each sunrise remind you that you have a fresh canvas to paint upon, a new page to script your story.
+        So, stand tall in the face of adversity, for within you lies a reservoir of untapped potential. Seize the day with the conviction that you are the author of your narrative. Let your actions be guided by hope, kindness, and a fierce determination to sculpt the life you envision. As you journey forward, remember that the most extraordinary tales are often born from the most challenging chapters.
+    </textarea>
+
+    <p>Enter your typed text below:</p>
+    <textarea id="user-typed-text" rows="10" cols="80"></textarea>
+
+    <button onclick="calculateAccuracy()">Calculate Accuracy</button>
+
+    <div id="accuracy-container">
+        <p>Accuracy: <span id="accuracy-result"></span>%</p>
     </div>
-  </div>
-  
+
+    <script>
+        function calculateAccuracy() {
+            const referenceText = document.getElementById('reference-text').value;
+            const userTypedText = document.getElementById('user-typed-text').value;
+
+            let resultHtml = '';
+            let minLength = Math.min(referenceText.length, userTypedText.length);
+
+            for (let i = 0; i < minLength; i++) {
+                let referenceChar = referenceText[i];
+                let typedChar = userTypedText[i];
+                
+                if (referenceChar !== typedChar) {
+                    resultHtml += `<span class="typed-text bg-black">${typedChar}</span>`;
+                } else {
+                    resultHtml += `<span class="reference-text bg-black ">${referenceChar}</span>`;
+                }
+            }
+
+            document.getElementById('accuracy-result').innerHTML = resultHtml;
+        }
+    </script>
+</body>
+</html>
